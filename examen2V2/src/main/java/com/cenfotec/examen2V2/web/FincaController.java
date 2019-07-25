@@ -21,7 +21,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cenfotec.examen2V2.repository.EmpleadoRepository;
 import com.cenfotec.examen2V2.domain.Empleado;
 import com.cenfotec.examen2V2.domain.Finca;
+import com.cenfotec.examen2V2.domain.Produccion;
 import com.cenfotec.examen2V2.repository.FincaRepository;
+import com.cenfotec.examen2V2.repository.ProduccionRepository;
 
 @Controller
 public class FincaController {
@@ -29,6 +31,8 @@ public class FincaController {
 	FincaRepository repo;
 	@Autowired
 	EmpleadoRepository repEmp;
+	@Autowired
+	ProduccionRepository repPro;
 	
 	//Listar fincas
 	@RequestMapping(value="", method = RequestMethod.GET)
@@ -99,4 +103,22 @@ public class FincaController {
 		mp.addAttribute("empleado", empleado);
 	    return "empleado";
 	}
+	
+	//Listar produccion por finca
+	@RequestMapping(value="/produccion_lista/{id}", method = RequestMethod.GET)
+    public String produccion_lista(@PathVariable Long id,ModelMap mp){
+		List<Produccion> produccionBD = null;
+		List<Produccion> listaproduccion = new ArrayList<Produccion>();
+		
+		produccionBD = repPro.findAll();
+		
+		for(Produccion bd : produccionBD) {
+			if(bd.getId_finca() == id) {
+				listaproduccion.add(bd);
+			}
+		}
+		
+        mp.put("producciones", listaproduccion);
+        return "produccion_lista";
+    }
 }
