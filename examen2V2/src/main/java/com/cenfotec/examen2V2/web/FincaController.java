@@ -121,4 +121,14 @@ public class FincaController {
         mp.put("producciones", listaproduccion);
         return "produccion_lista";
     }
+	
+	//Contrucción del modelo Produccion junto con el id de la finca
+	@RequestMapping(value="/produccion/{id}")
+	public String produccion(@PathVariable Long id, ModelMap mp){
+		Produccion produccion = new Produccion();
+		Finca finca = repo.getOne(id);
+		produccion.setId_finca(finca.getId());
+		mp.addAttribute("produccion", produccion);
+	    return "produccion";
+	}
 }
