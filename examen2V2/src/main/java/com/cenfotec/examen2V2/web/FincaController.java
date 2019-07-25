@@ -88,4 +88,15 @@ public class FincaController {
         mp.put("empleados", listaEmpleados);
         return "empleado_lista";
     }
+	
+	//Contrucción del modelo Empleado junto con el id de la finca
+	@RequestMapping(value="/empleado/{id}")
+	public String empleado(@PathVariable Long id, ModelMap mp){
+		Empleado empleado = new Empleado();
+		Finca finca = repo.getOne(id);
+		empleado.setId_finca(finca.getId());
+		empleado.setEstado("Activo");
+		mp.addAttribute("empleado", empleado);
+	    return "empleado";
+	}
 }
