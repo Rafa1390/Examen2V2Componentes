@@ -1,5 +1,8 @@
 package com.cenfotec.examen2V2.web;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cenfotec.examen2V2.repository.EmpleadoRepository;
+import com.cenfotec.examen2V2.domain.Empleado;
 import com.cenfotec.examen2V2.domain.Finca;
 import com.cenfotec.examen2V2.repository.FincaRepository;
 
@@ -22,6 +27,8 @@ import com.cenfotec.examen2V2.repository.FincaRepository;
 public class FincaController {
 	@Autowired
 	FincaRepository repo;
+	@Autowired
+	EmpleadoRepository repEmp;
 	
 	//Listar fincas
 	@RequestMapping(value="", method = RequestMethod.GET)
@@ -63,4 +70,22 @@ public class FincaController {
 	    return new ModelAndView("redirect:/");
 	}
 	//---Fin modificar finca---
+	
+	//Listar empleados por finca
+	@RequestMapping(value="/empleado_lista/{id}", method = RequestMethod.GET)
+    public String empleado_lista(@PathVariable Long id,ModelMap mp){
+		List<Empleado> empleadosBD = null;
+		List<Empleado> listaEmpleados = new ArrayList<Empleado>();
+		
+		empleadosBD = repEmp.findAll();
+		
+		for(Empleado bd : empleadosBD) {
+			if(bd.getId_finca() == id && bd.getEstado().equals("Activo")) {
+				listaEmpleados.add(bd);
+			}
+		}
+		
+        mp.put("empleados", listaEmpleados);
+        return "empleado_lista";
+    }
 }
