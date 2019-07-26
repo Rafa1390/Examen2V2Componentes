@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Busqueda empleados</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Empleados</h1>
+    <form action="#" th:action="@{/empleados_busqueda}" method="post">
+    	<p>Seleccione una finca o deje el 0 para ver los empleados de todas las fincas: 
+        	<select name="id_finca">
+        		<option th:value="0" th:text="0"></option>
+				<option data-th-each="finca : ${fincas}" th:value="${finca.id}" th:text="${finca.id}" th:selected="${finca.id==0}"></option>
+			</select>
+		</p>
+		
+		<p>Buscar por: </p>
+		<ul>
+      		<li>
+      			<input name="tipo" type="radio" th:value="'Nombre'" th:text="Nombre" checked><br>
+      		</li>
+      		<li>
+       			<input name="tipo" type="radio" th:value="'Apellido'" th:text="Apellido"><br>
+       		</li>
+       	</ul>
+       	
+       	<p>Ingrese el dato: <input type="text" name="dato"/></p>
+		
+        <p><input type="submit" value="Buscar" />
+    </form>
+    
+    <h2>Lista de empleados</h2>
+    <table class="table">
+    	<thead>
+    		<tr>
+    			<th>Id</th>
+    			<th>Finca</th>
+    			<th>Cedula</th>
+    			<th>Nombre</th>
+    			<th>Apellido</th>
+    			<th>Rol</th>
+    			<th>Estado</th>
+    		</tr>
+    	</thead> 	
+    	<tbody>
+    		<tr data-th-each="empleado : ${empleados}">
+    			<td data-th-text="${empleado.id}"></td>
+    			<td data-th-text="${empleado.id_finca}"></td>
+    			<td data-th-text="${empleado.cedula}"></td>
+    			<td data-th-text="${empleado.nombre}"></td>
+    			<td data-th-text="${empleado.apellido}"></td>
+    			<td data-th-text="${empleado.rol}"></td>
+    			<td data-th-text="${empleado.estado}"></td>
+    		</tr>
+    	</tbody>
+    </table>
+    <br/>
+    <a href="/">Volver</a>
+</body>
+</html>

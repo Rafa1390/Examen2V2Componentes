@@ -14,16 +14,14 @@
         <p>Apellido: <input type="text" th:field="*{apellido}" /></p>
         <p>Rol: <input type="text" th:field="*{rol}" onfocus="this.blur()"/></p>
         <p>Estado: </p>
-        	<ul>
-        		<li>
-        			<input th:field="*{estado}" type="radio" th:value="'Activo'" th:text="Activo" checked><br>
-        		</li>
-        	</ul>
-        	<ul>
-        		<li>
-        			<input th:field="*{estado}" type="radio" th:value="'Inactivo'" th:text="Inactivo"><br>
-        		</li>
-        	</ul>
+       	<ul>
+       		<li>
+       			<input th:field="*{estado}" type="radio" th:value="'Activo'" th:text="Activo" checked><br>
+       		</li>
+       		<li>
+       			<input th:field="*{estado}" type="radio" th:value="'Inactivo'" th:text="Inactivo"><br>
+       		</li>
+       	</ul>
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 </body>
