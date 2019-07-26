@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Produccion: obtencion de datos</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Produccion</h1>
+    <form action="#" th:action="@{/produccion_buqueda}" method="post">
+    	<p>Seleccione una finca o deje el 0 para ver todas las fincas: 
+        	<select name="id_finca">
+        		<option th:value="0" th:text="0"></option>
+				<option data-th-each="finca : ${fincas}" th:value="${finca.id}" th:text="${finca.id}" th:selected="${finca.id==0}"></option>
+			</select>
+		</p>
+        <p><input type="submit" value="Buscar" />
+    </form>
+    
+    <h2>Lista de produccion del mes actual</h2>
+    <table class="table">
+    	<thead>
+    		<tr>
+    			<th>Id</th>
+    			<th>Finca</th>
+    			<th>Cantidad huevos</th>
+    			<th>Fecha</th>
+    		</tr>
+    	</thead> 	
+    	<tbody>
+    		<tr data-th-each="produccion : ${producciones}">
+    			<td data-th-text="${produccion.id}"></td>
+    			<td data-th-text="${produccion.id_finca}"></td>
+    			<td data-th-text="${produccion.cant_huevos}"></td>
+    			<td data-th-text="${produccion.fecha}"></td>
+    		</tr>
+    	</tbody>
+    </table>
+    <br/>
+    <a href="/">Volver</a>
+</body>
+</html>
